@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
 
