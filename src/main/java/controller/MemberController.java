@@ -2,7 +2,6 @@ package controller;
 
 import dao.MemberDAO;
 import dto.MemberDTO;
-import exceptions.AccountFormatException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,11 +27,13 @@ public class MemberController extends HttpServlet {
                 String zipcode = request.getParameter("joinZipcode");
                 String address1 = request.getParameter("joinAddress1");
                 String address2 = request.getParameter("joinAddress2");
-                MemberDAO.getInstance().createAccount(new MemberDTO(id, pw, name, phone, email, zipcode, address1, address2, null));
+                int result = MemberDAO.getInstance().createAccount(new MemberDTO(id, pw, name, phone, email, zipcode, address1, address2, null));
+                response.sendRedirect("/index.jsp");
             }
-
-        } catch (AccountFormatException e) {
-            throw new AccountFormatException("아이디 생성 조건을 다시 확인해주세요.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", e);
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }
 
